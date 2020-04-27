@@ -1,0 +1,16 @@
+- name: Install dropbear-initramfs
+  pkg:
+    name: dropbear-initramfs
+
+- name: Create authorized_keys link
+  file:
+    src: /root/.ssh/authorized_keys
+    dest: /etc/dropbear-initramfs/authorized_keys
+  notify: Update initramfs
+
+- name: Set port in /etc/dropbear-initramfs/config
+  lineinfile:
+    path: /etc/dropbear-initramfs/config
+    line: "DROPBEAR_OPTIONS=\"-p {{ dropbear_initramfs_port }}\""
+    regexp: "DROPBEAR_OPTIONS"
+  notify: Update initramfs
