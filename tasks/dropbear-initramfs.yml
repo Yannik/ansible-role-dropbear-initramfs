@@ -16,3 +16,11 @@
     line: "DROPBEAR_OPTIONS=\"-p {{ dropbear_initramfs_port }}\""
     regexp: "DROPBEAR_OPTIONS"
   notify: Update initramfs
+
+# workaround for https://bugs.launchpad.net/ubuntu/+source/netplan.io/+bug/1876884
+- name: Install deconfigure-interfaces initramfs script
+  copy:
+    src: initramfs-deconfigure-interfaces
+    dest: /etc/initramfs-tools/scripts/init-bottom/deconfigure-interfaces
+    mode: a+x
+  notify: Update initramfs
