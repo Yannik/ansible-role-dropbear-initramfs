@@ -9,6 +9,7 @@
     dest: /etc/dropbear-initramfs/authorized_keys
     state: link
   notify: Update initramfs
+  when: dropbear_initramfs_root_authorized_keys
 
 - name: Set port in /etc/dropbear-initramfs/config
   lineinfile:

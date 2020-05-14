@@ -1,1 +1,2 @@
 dropbear_initramfs_port: 21
+dropbear_initramfs_root_authorized_keys: true
