@@ -1,2 +1,16 @@
 dropbear_initramfs_port: 21
 dropbear_initramfs_root_authorized_keys: true
+dropbear_initramfs_manual_network: false
+
+dropbear_initramfs_network_address: '{{ ansible_default_ipv4.address }}'
+dropbear_initramfs_network_netmask: '{{ ansible_default_ipv4.netmask }}'
+dropbear_initramfs_network_gateway: '{{ ansible_default_ipv4.gateway }}'
+dropbear_initramfs_network_device: '{{ ansible_default_ipv4.interface }}'
+
+# The `ipwrap` filter causes IPv6 address to work on some platforms.
+# Refer to: https://serverfault.com/questions/445296/is-there-a-linux-kernel-boot-parameter-to-configure-an-ipv6-address/701451#701451
+dropbear_initramfs_network_config: '{{
+  (dropbear_initramfs_network_address|ipwrap) + "::" +
+  (dropbear_initramfs_network_gateway|ipwrap) + ":" +
+  dropbear_initramfs_network_netmask + "::" +
+  dropbear_initramfs_network_device + ":none" }}'

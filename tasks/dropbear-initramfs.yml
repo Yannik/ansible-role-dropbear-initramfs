@@ -18,6 +18,13 @@
     regexp: "DROPBEAR_OPTIONS"
   notify: Update initramfs
 
+- name: Setup networking manually
+  template:
+    src: manual_network
+    dest: /etc/initramfs-tools/conf.d/
+  notify: Update initramfs
+  when: dropbear_initramfs_manual_network
+
 - name: Check if /etc/netplan exists
   stat: path=/etc/netplan
   register: netplan_installed
