@@ -18,6 +18,10 @@
     regexp: "DROPBEAR_OPTIONS"
   notify: Update initramfs
 
+- name: Check if /etc/netplan exists
+  stat: path=/etc/netplan
+  register: netplan_installed
+
 # workaround for https://bugs.launchpad.net/ubuntu/+source/netplan.io/+bug/1876884
 - name: Install deconfigure-interfaces initramfs script
   copy:
@@ -25,3 +29,4 @@
     dest: /etc/initramfs-tools/scripts/init-bottom/deconfigure-interfaces
     mode: a+x
   notify: Update initramfs
+  when: netplan_installed.stat.isdir is defined and netplan_installed.stat.isdir
