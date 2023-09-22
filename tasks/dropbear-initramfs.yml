@@ -11,9 +11,9 @@
   notify: Update initramfs
   when: dropbear_initramfs_root_authorized_keys
 
-- name: Set port in /etc/dropbear/initramfs/config
+- name: Set port in /etc/dropbear/initramfs/dropbear.conf
   lineinfile:
-    path: /etc/dropbear/initramfs/config
+    path: /etc/dropbear/initramfs/dropbear.conf
     line: "DROPBEAR_OPTIONS=\"-p {{ dropbear_initramfs_port }}\""
     regexp: "DROPBEAR_OPTIONS"
   notify: Update initramfs
