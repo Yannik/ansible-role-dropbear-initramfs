@@ -6,14 +6,14 @@
 - name: Create authorized_keys link
   file:
     src: /root/.ssh/authorized_keys
-    dest: /etc/dropbear-initramfs/authorized_keys
+    dest: /etc/dropbear/initramfs/authorized_keys
     state: link
   notify: Update initramfs
   when: dropbear_initramfs_root_authorized_keys
 
-- name: Set port in /etc/dropbear-initramfs/config
+- name: Set port in /etc/dropbear/initramfs/config
   lineinfile:
-    path: /etc/dropbear-initramfs/config
+    path: /etc/dropbear/initramfs/config
     line: "DROPBEAR_OPTIONS=\"-p {{ dropbear_initramfs_port }}\""
     regexp: "DROPBEAR_OPTIONS"
   notify: Update initramfs
