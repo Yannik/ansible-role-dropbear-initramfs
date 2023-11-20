@@ -29,6 +29,12 @@
   stat: path=/etc/netplan
   register: netplan_installed
 
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1056274
+- name: Make dropbear-initramfs initrd builds reproducible
+  patch:
+    src: dropbear_initramfs_root_dir.patch
+    dest: /usr/share/initramfs-tools/hooks/dropbear
+
 # workaround for https://bugs.launchpad.net/ubuntu/+source/netplan.io/+bug/1876884
 - name: Install deconfigure-interfaces initramfs script
   copy:
